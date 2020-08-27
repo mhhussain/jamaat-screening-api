@@ -38,6 +38,10 @@ namespace jamaat_screening_api
 
             app.UseHttpsRedirection();
 
+            // These two configs let you serve static files from ~/wwwroot
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
