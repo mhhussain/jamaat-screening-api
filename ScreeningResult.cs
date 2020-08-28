@@ -6,6 +6,8 @@ namespace jamaat_screening_api
     {
         public string Name { get; set; }
 
+        public DateTime Date { get; set; }
+
         public Boolean Fever { get; set; }
 
         public Boolean Cough { get; set; }
