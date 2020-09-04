@@ -44,6 +44,8 @@ namespace jamaat_screening_api
 
             app.UseRouting();
 
+            app.UseCors();
+
             // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
