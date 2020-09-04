@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 
 namespace jamaat_screening_api.Controllers
@@ -37,9 +38,9 @@ namespace jamaat_screening_api.Controllers
         }
 
         [HttpPost]
-        public string Post(ScreeningResult screeningResult)
+        public List<object> Post(ScreeningResult screeningResult)
         {
-            /*GoogleCredential credential;
+            GoogleCredential credential;
             using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream)
@@ -52,18 +53,32 @@ namespace jamaat_screening_api.Controllers
                 ApplicationName = ApplicationName,
             });
 
+            /*
             var range = $"{SheetName}!A:C";
             var request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
 
             var response = request.Execute();
-            var values = response.Values;*/
+            var values = response.Values;
+            */
 
             screeningResult.Date = DateTime.Now;
 
-            var result = String.Format("Results: {0} - {1}, Risk leve; {2}",
-                screeningResult.Name, screeningResult.Date.ToShortDateString(), screeningResult.Risk);
+            var range = $"{SheetName}!A:D";
+            var valueRange = new ValueRange();
 
-            return result;
+            var objectList = new List<object>() { screeningResult.Date.ToShortDateString(), screeningResult.Date.ToShortTimeString(), screeningResult.Name, screeningResult.Risk };
+            valueRange.Values = new List<IList<object>> { objectList };
+
+            var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, range);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendResponse = appendRequest.Execute();
+
+            return objectList;
+        }
+
+        private void CreateEntry()
+        {
+
         }
 
     }
