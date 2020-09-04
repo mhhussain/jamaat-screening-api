@@ -37,7 +37,7 @@ namespace jamaat_screening_api.Controllers
         }
 
         [HttpPost]
-        public Boolean Post(ScreeningResult screeningResult)
+        public string Post(ScreeningResult screeningResult)
         {
             /*GoogleCredential credential;
             using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
@@ -60,21 +60,10 @@ namespace jamaat_screening_api.Controllers
 
             screeningResult.Date = DateTime.Now;
 
-            var symptoms = screeningResult.NoSymptoms ? "NO SYMPTOMS" :
-                string.Concat("/", screeningResult.Fever ? "FEVER/" : "/",
-                    screeningResult.Cough ? "COUGH/" : "/",
-                    screeningResult.SoreThroat ? "SORETHROAT/" : "/",
-                    screeningResult.ShortnessOfBreath ? "SHORTNESS OF BREATH/" : "/",
-                    screeningResult.LossOfTasteOrSmell ? "LOSS OF TASTE OR SMELL/" : "/"
-                );
+            var result = String.Format("Results: {0} - {1}, Risk leve; {2}",
+                screeningResult.Name, screeningResult.Date.ToShortDateString(), screeningResult.Risk);
 
-            Console.WriteLine("Results: {0} - {1}, Symtoms: {2}, Contact with Covid: {3}, Travel within 14 days: {4}",
-                screeningResult.Name, screeningResult.Date.ToShortDateString(),
-                symptoms,
-                screeningResult.ContactWithCovid ? "YES" : "NO",
-                screeningResult.Travel14Days ? "YES" : "NO");
-
-            return false;
+            return result;
         }
 
     }
