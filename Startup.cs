@@ -36,7 +36,7 @@ namespace jamaat_screening_api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             // These two configs let you serve static files from ~/wwwroot
             app.UseDefaultFiles();
@@ -44,7 +44,7 @@ namespace jamaat_screening_api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
