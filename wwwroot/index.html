@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      async function store() {
+        alert('Started');
+        try {
+          let name = document.getElementById('name').value;
+          let risk = document.getElementById('risk').value;
+          let response = await fetch(
+            'http://jamaat-screening.moohh.xyz:5000/api/screening',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                name: name,
+                risk: risk,
+              }),
+            }
+          );
+
+          let r = await response.text();
+
+          alert(r);
+        } catch (err) {
+          alert('Fetch Error: ' + err.message + ' ' + err.name);
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <input id="name" type="text" placeholder="name" />
+    <input id="risk" type="text" placeholder="risk" />
+    <button onclick="store()">Execute</button>
+  </body>
+  <html></html>
+</html>
