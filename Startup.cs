@@ -26,7 +26,7 @@ namespace jamaat_screening_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors(c => c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()));
+            services.AddCors(c => c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +45,7 @@ namespace jamaat_screening_api
 
             app.UseRouting();
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             // app.UseAuthorization();
 
